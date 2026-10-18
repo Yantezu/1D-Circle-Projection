@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Minecraft: Reality Diver Engine</title>
+    <style>
+        * { margin: 0; padding: 0; box-color: border-box; }
+        body { background: #070709; color: #fff; font-family: monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        #canvasContainer { position: relative; border: 3px dashed crimson; border-radius: 10px; box-shadow: 0 0 25px rgba(220, 20, 60, 0.3); }
+        canvas { display: block; border-radius: 6px; }
+        #dashboard { margin-top: 15px; width: 512px; font-size: 11px; background: rgba(15, 15, 20, 0.8); padding: 12px; border-radius: 6px; border: 1px solid #222; }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .highlight { color: #00ffff; font-weight: bold; }
+        .seed-hl { color: #ff00ff; }
+        #instructions { margin-top: 10px; color: #888; text-align: center; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="canvasContainer">
+        <canvas id="realityCanvas" width="512" height="512"></canvas>
+    </div>
+
+    <div id="dashboard">
+        <div class="stat-row"><span>[ENGINE STATE]</span><span class="highlight">MATH 2.0 OPERATIONAL</span></div>
+        <div class="stat-row"><span>Active Phase Anchor (&theta;):</span><span id="thetaDisplay" class="highlight">0 / 30</span></div>
+        <div class="stat-row"><span>Left-Side Seed Block (Phi_5):</span><span class="seed-hl">1.092820323</span></div>
+        <div class="stat-row"><span>Falling Factorial P(5,2):</span><span class="seed-hl">20 Nodes</span></div>
+        <div class="stat-row"><span>Subfactorial !(5-2):</span><span class="seed-hl">2 Derangements</span></div>
+        <div class="stat-row"><span>Audio Target Lock:</span><span id="audioDisplay" class="highlight">0 Hz</span></div>
+    </div>
+
+    <div id="instructions">
+        Move MOUSE inside the horizon to spin the clock wheel.<br>
+        Terrain deforms and audio steps dynamically across 30 discrete prime slots.
+    </div>
+
+    <script>
+        const canvas = document.getElementById('realityCanvas');
+        const ctx = canvas.getContext('2d');
+        const thetaDisplay = document.getElementById('thetaDisplay');
+        const audioDisplay = document.getElementById('audioDisplay');
+
+        // --- THE FIXED LEFT-SIDE SEEDS (Your Modular Gears) ---
+        const Pn = 5;  // Core active prime index (Maps to P5 = 11)
+        const Pprev = 3; 
+        const Pnext = 7;
+        const Pj = 2;  // Anchor Layer (Maps to P2 = 3)
+        const n_idx = 5; // Particle matrix tracker
+
+        // Φ_5 Curvature Base Calculation
+        const Phi_5 = ((Pn - Pprev) + Math.sqrt(Pnext + Pn)) / Pn; // ~1.09282
+        
+        // Hardwired Integer Switches (f_block & g_block)
+        const f_block = 20; // math.perm(5, 2)
+        const g_block = 2;  // subfactorial(5 - 2)
+
+        // Web Audio API Setup for Retro Tone Generator
+        let audioCtx = null;
+        let oscillator = null;
+        let gainNode = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                oscillator = audioCtx.createOscillator();
+                gainNode = audioCtx.createGain();
+                
+                oscillator.type = 'square'; // Classic retro 8-bit signal
+                gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime); // Low safe volume
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+            }
+        }
+
+        // --- MATH 2.0 POLAR SDF RENDER ENGINE ---
+        function renderReality(mouseX, mouseY) {
+            const width = canvas.width;
+            const height = canvas.height;
+            const imgData = ctx.createImageData(width, height);
+            const data = imgData.data;
+
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // Map player mouse tracking straight to our 30-slice clock wheel
+            let playerAngle = Math.atan2(mouseY - centerY, mouseX - centerX);
+            if (playerAngle < 0) playerAngle += 2 * Math.PI;
+            
+            // Lock position into one of your 30 discrete clock slots
+            const sliceIndex = Math.floor((playerAngle / (2 * Math.PI)) * 30);
+            const targetTheta = sliceIndex / 30;
+            
+            thetaDisplay.innerText = `${sliceIndex} / 30`;
+
+            // Natively calculate your audio frequency step from your wheel slot
+            if (audioCtx) {
+                // Pitch moves down your whole number prime ratios
+                const freq = 150 + (sliceIndex * 12); 
+                oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                audioDisplay.innerText = `${freq} Hz`;
+            }
+
+            // Loop through every individual screen pixel coordinate (SDF Matrix)
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+
+                    // Calculate localized distance from center portal node (r) and screen phase angle (theta)
+                    const dx = x - centerX;
+                    const dy = y - centerY;
+                    const r = Math.sqrt(dx * dx + dy * dy) / (width / 2); // Normalized Radius
+                    let theta = Math.atan2(dy, dx);
+                    if (theta < 0) theta += 2 * Math.PI;
+
+                    if (r === 0) continue; // Safeguarded zero portal path
+
+                    // Apply your Asymmetric Charge Bracket: (Slices / Something) - 1
+                    // Adding player movement as a native phase offset rotation
+                    const phaseOffset = Math.cos(5 * theta - (targetTheta * Math.PI * 2));
+                    
+                    // Route Red, Green, and Blue straight down your Prime 2, 3, and 5 tracks
+                    let waveR = Math.sin(2 * (1/r) + phaseOffset * f_block);
+                    let waveG = Math.cos(3 * (1/r) + phaseOffset * g_block);
+                    let waveB = Math.sin(5 * (1/r) - (1 / (targetTheta + 0.01)));
+
+                    // Clamp values to raw digital color thresholds [0-255]
+                    data[idx]     = Math.floor((waveR + 1) * 127.5 * Math.pow(Phi_5, g_block)); // Red Channel
+                    data[idx + 1] = Math.floor((waveG + 1) * 127.5 * r);                       // Green Channel
+                    data[idx + 2] = Math.floor((waveB + 1) * 127.5);                             // Blue Channel
+                    data[idx + 3] = 255;                                                         // Alpha Opacity
+
+                    // Crystal Node Overlay: Force clean white pixels when math strikes your 1.7 threshold
+                    if (Math.abs(r - 0.58) < 0.01 && Math.abs(waveR) > 0.95) {
+                        data[idx] = 255; data[idx+1] = 255; data[idx+2] = 255;
+                    }
+                }
+            }
+
+            ctx.putImageData(imgData, 0, 0);
+        }
+
+        // --- INTERACTION EVENT CONTROLLER ---
+        canvas.addEventListener('mousemove', (e) => {
+            initAudio(); // Trigger audio context safely upon user movement
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            renderReality(x, y);
+        });
+
+        // Initialize center ground state viewport
+        renderReality(canvas.width / 2 + 50, canvas.height / 2 + 50);
+    </script>
+</body>
+</html>
