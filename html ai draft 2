@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Circular Minecraft: Dynamic Clock Engine</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; }
+        body { background: #050508; color: #fff; font-family: monospace; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding: 10px; overflow-y: auto; }
+        
+        #canvasContainer { position: relative; border: 3px dashed #00ffff; border-radius: 10px; margin-bottom: 10px; background: #000; max-width: 100%; }
+        canvas { display: block; max-width: 100%; height: auto; border-radius: 6px; }
+        
+        #controlPanel { width: 100%; max-width: 400px; background: rgba(15, 15, 20, 0.95); padding: 12px; border-radius: 8px; border: 1px solid #222; font-size: 11px; }
+        .control-group { margin-bottom: 10px; display: flex; flex-direction: column; }
+        .control-group label { display: flex; justify-content: space-between; margin-bottom: 3px; color: #aaa; }
+        .control-group input[type="range"] { width: 100%; accent-color: #00ffff; }
+        
+        /* Touch Screen Arrow D-Pad */
+        #dpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 150px; margin: 10px auto; }
+        .dbtn { background: #151520; border: 1px solid #333; border-radius: 6px; color: #fff; font-size: 16px; font-weight: bold; padding: 12px; text-align: center; cursor: pointer; user-select: none; }
+        .dbtn:active { background: #00ffff; color: #000; border-color: #fff; box-shadow: 0 0 10px #00ffff; }
+        .empty-slot { visibility: hidden; }
+
+        .stat-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #111; color: #888; }
+        .highlight { color: #00ffff; font-weight: bold; }
+        .seed-hl { color: #ff00ff; }
+    </style>
+</head>
+<body>
+
+    <div id="canvasContainer">
+        <canvas id="realityCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <div id="controlPanel">
+        <!-- Prime Dimension Sliders -->
+        <div class="control-group">
+            <label><span>Core Dimension (Prime P<sub>n</sub> Slot):</span> <span id="pnVal" class="highlight">11</span></label>
+            <input type="range" id="pnSlider" min="0" max="25" step="1" value="4">
+        </div>
+        <div class="control-group">
+            <label><span>Anchor Layer (Prime P<sub>j</sub> Slot):</span> <span id="pjVal" class="highlight">3</span></label>
+            <input type="range" id="pjSlider" min="0" max="25" step="1" value="1">
+        </div>
+        
+        <!-- Dynamic Clock Wheel Slider -->
+        <div class="control-group">
+            <label><span>Clock Wheel Resolution (Total Slices):</span> <span id="slicesVal" class="highlight">30</span></label>
+            <input type="range" id="slicesSlider" min="4" max="60" step="1" value="30">
+        </div>
+
+        <!-- Touch Controls -->
+        <div id="dpad">
+            <div class="empty-slot"></div>
+            <div class="dbtn" id="btnUp">▲</div>
+            <div class="empty-slot"></div>
+            <div class="dbtn" id="btnLeft">◄</div>
+            <div class="dbtn" id="btnCenter">⎔</div>
+            <div class="dbtn" id="btnRight">►</div>
+            <div class="empty-slot"></div>
+            <div class="dbtn" id="btnDown">▼</div>
+            <div class="empty-slot"></div>
+        </div>
+
+        <!-- Real-Time Metrics -->
+        <div class="stat-row"><span>Active Wheel Angle (&theta;):</span><span id="thetaDisplay" class="highlight">0 / 30</span></div>
+        <div class="stat-row"><span>Gap Operator (P<sub>n</sub> - P<sub>j</sub>):</span><span id="gapDisplay" class="seed-hl">8</span></div>
+        <div class="stat-row"><span>Audio Frequency Sync:</span><span id="audioDisplay" class="highlight">0 Hz</span></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('realityCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // DOM Elements
+        const pnSlider = document.getElementById('pnSlider');
+        const pjSlider = document.getElementById('pjSlider');
+        const slicesSlider = document.getElementById('slicesSlider');
+        const pnVal = document.getElementById('pnVal');
+        const pjVal = document.getElementById('pjVal');
+        const slicesVal = document.getElementById('slicesVal');
+        const thetaDisplay = document.getElementById('thetaDisplay');
+        const gapDisplay = document.getElementById('gapDisplay');
+        const audioDisplay = document.getElementById('audioDisplay');
+
+        // Expanded Prime Sequence List Map up to 101
+        const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101];
+
+        // Automatically configure prime slider limits
+        pnSlider.max = primes.length - 1;
+        pjSlider.max = primes.length - 1;
+
+        // Simulation Positions
+        let sliceIndex = 0;
+        let radiusOffset = 0.5; 
+
+        // Web Audio Node variables
+        let audioCtx = null, oscillator = null, gainNode = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                oscillator = audioCtx.createOscillator();
+                gainNode = audioCtx.createGain();
+                oscillator.type = 'square'; 
+                gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); 
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+            }
+        }
+
+        // --- SUBFACTORIAL & PERMUTATION SWITCHES ---
+        function subfactorial(v) {
+            if (v <= 0) return 1;
+            let f = 1;
+            for(let i=1; i<=v; i++) f *= i;
+            return Math.round(f / Math.E);
+        }
+
+        function mathPerm(n, r) {
+            if (r > n || r < 0) return 1;
+            let p = 1;
+            for (let i = 0; i < r; i++) p *= (n - i);
+            return p;
+        }
+
+        // --- CORE MATH 2.0 POLAR SDF BLOCK RENDERER ---
+        function renderReality() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const imgData = ctx.createImageData(width, height);
+            const data = imgData.data;
+
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // Load Slider States Natively
+            const p_n_active = primes[parseInt(pnSlider.value)];
+            const p_j_active = primes[parseInt(pjSlider.value)];
+            const maxSlices = parseInt(slicesSlider.value);
+            
+            pnVal.innerText = p_n_active;
+            pjVal.innerText = p_j_active;
+            slicesVal.innerText = maxSlices;
+            
+            const gap = p_n_active - p_j_active;
+            gapDisplay.innerText = gap;
+
+            // Pre-calculate Left-Side Seeds
+            const f_block = mathPerm(p_n_active, p_j_active) % 50; 
+            const g_block = subfactorial(Math.abs(gap)) % 10;
+
+            // Enforce modulo boundary limit on slice index based on new dynamic denominator
+            sliceIndex = (sliceIndex + maxSlices) % maxSlices;
+            const targetTheta = sliceIndex / maxSlices;
+            thetaDisplay.innerText = sliceIndex + " / " + maxSlices;
+
+            // Process Audio Stream Signal Changes
+            if (audioCtx) {
+                const freq = 120 + (sliceIndex * (360 / maxSlices)) + (p_n_active * 4);
+                oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                audioDisplay.innerText = Math.floor(freq) + " Hz";
+            }
+
+            // Render Every Individual Pixel via SDF Radial Distances
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+
+                    const dx = x - centerX;
+                    const dy = y - centerY;
+                    const r = (Math.sqrt(dx * dx + dy * dy) / (width / 2)) * radiusOffset;
+                    let theta = Math.atan2(dy, dx);
+                    if (theta < 0) theta += 2 * Math.PI;
+
+                    if (r === 0) continue; 
+
+                    // Asymmetric Slices / Something Transformation
+                    const phaseOffset = Math.sin(5 * theta - (targetTheta * Math.PI * 2));
+                    
+                    // Route Grid Patterns directly into your Prime Channels
+                    let waveR = Math.sin(p_j_active * (1 / r) + phaseOffset * f_block);
+                    let waveG = Math.cos(p_n_active * (1 / r) + phaseOffset * g_block);
+                    let waveB = Math.sin(5 * (1 / r) - (1 / (targetTheta + 0.05)));
+
+                    // Execute Hyper-Checkerboard Color Flipping Asymptotes
+                    let checkFlip = Math.sign(waveR) * Math.sign(waveG);
+
+                    data[idx]     = checkFlip > 0 ? Math.floor((waveR + 1) * 127.5) : 10;
+                    data[idx + 1] = checkFlip < 0 ? Math.floor((waveG + 1) * 127.5) : 40;
+                    data[idx + 2] = Math.floor((waveB + 1) * 100);
+                    data[idx + 3] = 255; 
+                }
+            }
+
+            ctx.putImageData(imgData, 0, 0);
+        }
+
+        // --- CONTROLLER ACTION LISTENERS ---
+        [pnSlider, pjSlider, slicesSlider].forEach(slider => {
+            slider.addEventListener('input', () => {
+                initAudio();
+                renderReality();
+            });
+        });
+
+        document.getElementById('btnLeft').addEventListener('pointerdown', () => {
+            initAudio();
+            const maxSlices = parseInt(slicesSlider.value);
+            sliceIndex = (sliceIndex - 1 + maxSlices) % maxSlices; 
+            renderReality();
+        });
+
+        document.getElementById('btnRight').addEventListener('pointerdown', () => {
+            initAudio();
+            const maxSlices = parseInt(slicesSlider.value);
+            sliceIndex = (sliceIndex + 1) % maxSlices; 
+            renderReality();
+        });
+
+        document.getElementById('btnUp').addEventListener('pointerdown', () => {
+            initAudio();
+            radiusOffset = Math.max(0.1, radiusOffset - 0.05); 
+            renderReality();
+        });
+
+        document.getElementById('btnDown').addEventListener('pointerdown', () => {
+            initAudio();
+            radiusOffset = Math.min(3.0, radiusOffset + 0.05); 
+            renderReality();
+        });
+
+        document.getElementById('btnCenter').addEventListener('pointerdown', () => {
+            initAudio();
+            sliceIndex = 0; radiusOffset = 0.5; 
+            renderReality();
+        });
+
+        renderReality();
+    </script>
+</body>
+</html>
