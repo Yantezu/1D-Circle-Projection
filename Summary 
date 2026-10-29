@@ -1,0 +1,209 @@
+# Circle Math: Let's imagine the imaginary.
+
+Heres my very poorly assembled Torus Wave Addition stuff. Its hopefully an alternative to "peekaboo physics". It's untested so could be merely weird math. If you're expecting enlightenment, farm or something. 
+
+---
+
+## 0. Why's the universe treated like Minecraft commands?
+What if the line was merely a projection of a circle. What would a 1D torus circle even look like. Well, lets set
+$$0\approx\frac{1}{\infty}$$
+And see... 👁️👄👁️
+To get it outta the way, y'all's flat $\pm\infty$ fractal gotta go. 
+
+### How to visualize torus dimensions.
+#### 1D with no +- stuff:
+Start with a ⭕ infinitely small. If you infinitely grow it, it traces half a sphere 🥣. Grow that half infinitely small amount and rotate 180°, the inside of one fills that empty space of another. Thats 1D imaginary numbers, where instead of going towards the infinite radius towards 0, you just treat it as a rotation. No flat Minecraft grid required. 
+
+#### 2D with -+ charge:
+Grab your trusty ⭕ and rotate it infinitely small angles up to 180°/2 so 90°. You get 4 🍊 slices, 2 of which are empty. Grow your sphere and rotate 90° or 180°. Now instead of imaginary rotation, you're on the inside or outside of the same torus. Going past infinity also does that...
+
+#### 3D with whatever:
+Rotate 60° then you gotta go 3 deep to do 60° 120° 180° rotation alongside the +-? charges
+
+Higher dimensions=smaller rotations=greater relatively curved♾️ radius.
+
+## 1. The vision...
+*   **My incomplete 🌊 gibberish:** 
+$$\text{Spiral} 	\times 	\text{Circles} \times \infty	\text{ Radius} 	\times 	\text{Angle}$$
+
+*$P_n$=Primes; list $[2,3,5,...]$; $P_{0}=1,P_{-1}=0?$:
+$$\text{Spiral so far} \rightarrow \frac{(P_n-\frac{1}{P_j}-...)\pm√(P_n+P_j)}{P_n \text{ or }P_k\text{ or }(P_n*P_j...)🤷}^{\pm q}$$
+$$\text{Relative Circle Permutation} \rightarrow f(P_n-P_j...)$$
+$$\infty\text{Radius} \rightarrow \frac{1}{n^{Pn-j...}}-\frac{1}{\theta}$$
+$$\text{Angle} \rightarrow \theta?=\frac{a}{Slices},\text{Slices?} \rightarrow P_n(P_n*2(P_j))$$
+Primes seem to make up every number in a sense, so imma assume different numbers end up as prime sequences. 
+
+### The Dimensional Clock Gears
+To preserve sync across overlapping wave tracks, we'll set angles or gears based off the combined prime structures and move along those. Thisll determine how the dimensions fold into themselves.
+*   **30 Slice Wheel:** The perfect baseline calculated from the first three primordial primes: $2 	\times 3 	\times 5 = 30$. This permits a a 2, 3, and 5 gear wave to mesh together. 
+*   **Higher-Dimensional Scales:** As dimensions scale up, the grid hyper-packs:
+    *   **4D Scale (7 Prime):** $2 	\times 3 	\times 5 	\times 7 = 210$ slices.
+    *   **5D Scale (11 Prime):** $2 	\times 3 	\times 5 	\times 7 	\times 11 = 2,310$ slices.
+    *   **6D Scale (13 Prime):** $2 	\times 3 	\times 5 	\times 7 	\times 11 	\times 13 = 30,030$ slices.
+
+---
+
+## 2. No more imaginary numbers?
+
+Mainstream uses imaginary numbers ($i = \sqrt{-1}$) and wave stuff ($e^{i \theta}$) to force a line to curve. heres my attempt at seeing how the golden ratio fairs🤷.
+
+### The Scalable Golden Ratio Spiral Outside Inside Pair
+*   **Golden Spiral:** $$ \frac{(2-1) \pm \sqrt{(2+3)}}{2} \approx 1.61803...$$
+*   **$S_O$ (Spiral Macro Outside):** $$ \frac{(1) + \sqrt{(5)}}{2} \approx 1.61803...$$
+*   **$S_I$ (Spiral Micro Inside):** $$ \frac{1 - \sqrt{5}}{2} \approx -0.61803...$$
+* **$S_n$ (Spiral Modified):** 
+$$\frac{((P_n-\frac{1}{P_j}...)=X)\pm√(P_n+P_j)}{P_n}$$
+Using the normal Golden Ratio:
+$S_O \cdot S_I = -1 =.^{"}e^{iπ}.^{"}$
+$S_O + S_I = 1$
+$S_O ÷ S_I = -S_O-1=-(S_O)^2$
+$S_I ÷ S_O = -(S_I)^2$
+$S_O - S_I = √(5)$
+$-S_O - S_I = -1$
+...
+Full Modification: $R=X_{S_O},X_{S_I}$ relationship where R's dynamic; based on the waves. I assume S-R part works tho I made this from the normal spiral √5 so Ill fix later if needed. Dynamic affects that...
+
+$S_O \cdot S_I = {-R} =R*.^{"}e^{iπ}.^{"}$
+$S_O ÷ S_I = -S_O-R=-(S_O)^2$
+$S_I ÷ S_O = -(S_I)^2$
+$S_O + S_I = -R$
+$S_O - S_I = √(P_n+P_j...)$
+$S_I - S_O = -√(P_n+P_j...)$
+$-S_O + S_I = -R$
+$-S_O - S_I = -√(P_n+P_j...)$
+$-S_I + S_O = √(P_n+P_j...)$
+$-S_I - S_O = -R$
+
+The irrational bits remove each other. Tbh maybe its useful maybe its useless im still figuring that out it looks too simple...
+
+### The Trigonometric Replacement Formula
+Now lets try to draw a circle $x^2 + y^2 = c^2$ without using $\sin()$ or $\cos()$. Create a phase variable ($t$) using our gear angles heres a possible equation for our torus:
+$$ X = c \cdot \left( \frac{S_O^t + S_I^t}{2} 
+\right) $$
+$$ Y = c \cdot \left( \frac{S_O^t - S_I^t}{2\sqrt{5}} 
+\right) $$
+
+---
+
+## 3. Rudamentary particle side quest 
+
+Particles here are locked dimensional sequences using various bases. For this im just trying ÷9 because it was random its possible a better base works out. Anyways here, theyre basically shown as charges where 0 is no Dimensional leakage, decimals can mean motion, etc. 
+
+### Particle Start
+
+| Particle Identity       | Structural System | Fractional Position Code               | Physical Manifestation / Role           |
+| :---------------------- | :---------------- | :------------------------------------- | :-------------------------------------- |
+| **Electron**            | $e^-$             | $+1$                                   | Macro boundary shield or shell.         |
+| **Positron**            | $e^+$             | $-1$                                   | Negative radius, inverted chiral shell. |
+| **Proton Core**         | $P$               | $-\frac{5}{9} \approx -0.5555...$    | Asymmetric mixed quark micro push       |
+| **Antiproton Core**     | $\bar{P}$        | $+\frac{5}{9} \approx +0.5555...$    | Inverted proton :/.                     |
+| **Neutron Lock**        | $N$               | $+\frac{5}{9} \approx +0.5555...$    | Time-shared dimensions?                 |
+| **Antineutron Lock**    | $\bar{N}$        | $-\frac{5}{9} \approx -0.5555...$    | Inverted time-shared chiral stuff 🤷    |
+| **Neutron possible 2?** | n                 | $\pm\frac{4}{9} \approx \pm0.4444...$ | Creates $\pm 1$ charge                  |
+imma fix charges later i has radius setup as -(1/n...) so yea I fixed that unless it improves the equation then ill re add it who knows. 
+### Some tests if theyre even called that.
+*   **Hydrogen-1 Core Lock:** $1e^- + 1P = 1 + (-5/9) = \mathbf{4/9} \approx \mathbf{0.4444...}$
+*   **Deuterium Stabilizer:** $1e^- + 1P + 1N = 1 + (-5/9) + (+5/9) = \mathbf{1}$ (Perfect Neutral Charge).
+*   **Helium-4?:** $2P + 2N = 2(-5/9) + 2(+5/9) = \mathbf{0}$ (Perfect lock preventing all spatial data leakage).
+*   **Strange Matter (Hypernuclei):** Incorporates an inverted heavy fraction anchor $(-\frac{14}{9}$):
+
+$$ \left(- \frac {14}{9}
+\right) + \left(+\frac{5}{9}
+\right) \rightarrow (-1) + (+1) = \mathbf{0} 	\text{ net charge leak} $$
+
+$$\underbrace{\left( \left( \frac{(2-1) + \sqrt{2+3}}{2} \right)^1 + \left( \frac{(2-1) - \sqrt{2+3}}{2} \right)^1 \right) }_{\text{Shell Shield }}
+$$
+
+$$\underbrace{\left[ \left( \frac{(2-1) + \sqrt{2+3}}{2} \right)^2 \cdot (2 \times 1) \cdot - \left( \frac{1}{1} - \frac{\frac{1}{9}}{\left(\frac{1}{4}\right)} \right) \cdot \frac{1}{4} \right]}_{\text{Proton Quark 1} (\text{with 2 = }+5/9)}
+$$
+$$\underbrace{\left[ \left( \frac{(2-1) - \sqrt{2+3}}{2} \right)^1 \cdot (2 \times 1) \cdot - \left( \frac{1}{1} - \frac{\frac{1}{9}}{\left(\frac{1}{4}\right)} \right) \cdot \frac{1}{4} \right]}_{\text{Proton Quark 2} (\text{with 1 = }+5/9)}
+$$
+
+$$\underbrace{\left( \frac{5}{9} \right) \cdot (\pm1)}_{\text{Neutron Core Balance } (-5/9)}
+$$
+---
+
+## 4. Analog Computer? (The Vinyl Calculator) *fix*
+
+
+
+---
+
+## 5. Non-Commutative Dimensional Hierarchy Rules *fix*
+
+
+---
+
+
+## **6. Higher Dimensional Golden Ratios - old notes because i got lazy:**
+
+Was trying to create a navigator using $\Phi^{ij\theta}$ when I noticed the prime sorta structure of an approximation I think. Using that I made this:
+$$\left(\Phi _{j}\right)^{i*\theta}\longrightarrow \left[\frac{(P_{j}-P_{j-1})+\sqrt{P_{j+1}+P_{j}}}{P_{j}}\right]^{i*\theta}$$
+ 
+ So j selects which slice of the golden ratio orbit you're on, i the charge and $\theta$ the 1/12 slice that was the planogram. 🤷
+
+Anyways here's visual base Ratio Examples
+$\theta=1,i=+1 \text{, or Max +Charge Because imaginary is a variable}$ 
+$$\left(\Phi _{n=0,P=\text{"1"}}\right)^{+1*\theta}\longrightarrow \frac{(1-0)+\sqrt{3{}}}{1_{}}=2.732...$$
+$$\left(\Phi _{P=2}\right)^{+1*\theta}\longrightarrow \frac{(1)+\sqrt{5{}}}{2_{}}=1.618...$$
+$$\left(\Phi _{P=3}\right)^{+1*\theta}\longrightarrow \frac{(3-2)+\sqrt{3+5aka''8''{}}}{3_{}}=1.276...$$
+$$\left(\Phi _{P=5}\right)^{+1*\theta}\longrightarrow \frac{(5-3)+\sqrt{5+7aka''12''{}}}{5_{}}=1.092...$$
+$$\left(\Phi _{P=7}\right)^{+1*\theta}\longrightarrow \frac{(2)+\sqrt{18{}}}{7_{}}=0.891...$$
+$$\left(\Phi _{P=11}\right)^{+1*\theta}\longrightarrow \frac{(4)+\sqrt{24{}}}{11_{}}=0.808998...$$
+$$\left(\Phi _{P=13}\right)^{+1*\theta}\longrightarrow \frac{(2)+\sqrt{30{}}}{13_{}}=0.575...$$
+$$\left(\Phi _{P=17}\right)^{+1*\theta}\longrightarrow \frac{(4)+\sqrt{36{}}}{17_{}}=0.588...$$
+$$\left(\Phi _{P=19}\right)^{+1*\theta}\longrightarrow \frac{(2)+\sqrt{42{}}}{19_{}}=0.446...$$
+$$\left(\Phi _{P=23}\right)^{+1*\theta}\longrightarrow \frac{(4)+\sqrt{52{}}}{23_{}}=0.487...$$
+$$\left(\Phi _{P=29}\right)^{+1*\theta}\longrightarrow \frac{(6)+\sqrt{60{}}}{29_{}}=0.473...$$
+$$\left(\Phi _{P=31}\right)^{+1*\theta}\longrightarrow \frac{(2)+\sqrt{68{}}}{31_{}}=0.330...$$
+$$\left(\Phi _{P=37}\right)^{+1*\theta}\longrightarrow \frac{(6)+\sqrt{78{}}}{37_{}}=0.4008...$$
+$$\left(\Phi _{P=41}\right)^{+1*\theta}\longrightarrow \frac{(4)+\sqrt{84{}}}{41_{}}=0.321...$$
+$$...$$
+
+Another variation?
+$$\Phi _{n}=(P_n-P_{n-1})+\frac{1}{(P_n-P_{n-1})...}$$
+Or
+$$\Phi _{n}=1+\frac{(P_n-\frac{1}{P_{j}}...)}{1+\frac{(P_n-\frac{1}{P_{j}}...)}{1+...}}$$
+
+## Part 7. Other Nonsense 
+
+Thought Experiment:
+Divide a square in half. Then half of half. You can keep going or lets stop at the 1/4 square. Divide that into 1/3, how many slices do you remove including the 1/3?? $$4*1/3=1/12$$
+Or for 1/5
+$$4*1/5=1/20$$
+
+So 
+$$4*1/Prime=1/Slices$$
+However let's try breaking it down for different cubes.
+$$(2*2)*Prime=Slices$$
+2 is prime. Maybe?
+$$(P_n*(P_{n-1}+P_{n-1}))*Prime=Slices$$
+This way a cube of 5 should be correct?
+$$(5*(3+3))*2 \text{, reciprocal}=1/60$$
+$$(5*(3+3))*1 \text{, reciprocal}=1/30$$
+$$(5*(2+2))*1 \text{, reciprocal}=1/20$$
+
+Idk if that right tbh imma roll with it for now bc
+$$(3*(2+2))*1 \text{ reciprocal}👽$$
+
+## 8. e thingy as a spiral.
+### $\phi_{n=1,P=2}$:
+$$(2-1)+\frac{1}{(2-1)+\frac{1}{1+\frac{1}{1+\dots }}}=\frac{(2-1)+√(2+3)}{2}?$$
+Grid $=[1; 1, 1, 1, 1,...]$
+
+### $\phi_{n=2}$:
+$$(3-2)+\frac{1}{3+\frac{1}{1+\frac{1}{1+\dots }}}?=\frac{(3-2)+√(3+5)}{3}?$$
+Grid $=[1; 3, 1, 1, 2, 1, 1, 6, 1, 1, 10, 1, 1, 14,...]$?
+
+### $\phi_{n=3}$:
+$$1+\frac{1}{10+\frac{1}{1+\frac{1}{3+... }}}=\frac{(5-3)+√(5+7)}{5}\approx1.09?$$
+Grid $=[1; 10, 1, 3, 1, 2, 1, 1, 1, 5,...]$?
+
+### $e_{?}$:
+$$2+\frac{1}{1+\frac{1}{2+\frac{1}{3+\dots }}}=\frac{?+√?}{?}?$$
+Grid $=[2; 1, 2, 3, 4,...]$
+
+Extra e stuff:
+$$
+e^{i\pi /5}+e^{-i\pi /5}=\frac{1+\sqrt{5}}{2}=S_{O}$$
+$$e^{i3\pi /5}+e^{-i3\pi /5}=\frac{1-\sqrt{5}}{2}=S_{I}$$
