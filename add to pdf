@@ -1,0 +1,80 @@
+
+$$mqth$$
+Last quick test using that prime list and alternative fraction spiral setup. n=1 is Prime list 2/1 or 2. 
+n=0 is 1/1,
+n=-1 will be 1/2. 
+$n_O$ is outside, $n_I$ inside,
+outside inside is $\pm√$.
+$$\Phi_{n_O}=\frac{(P_n-P_{n-1})+\sqrt{P_n+P_{n+1}}}{Pn}$$
+$$\phi_{n_O}=\frac{-P_n+\sqrt{1+P_n}}{Pn}$$
+$$\phi_{n_I}=\frac{-P_n-\sqrt{1+P_n}}{Pn}$$
+
+$$\Phi _{n_O}+\phi _{n_O}=?$$
+$$\frac{(P_{n}-P_{n-1}-P_{n})+\sqrt{P_{n+1}+P_{n}}+\sqrt{1+P_{n}}}{P_{n}}$$
+$$\Phi _{n_O}-\phi _{n_O}=?$$
+$$\frac{(P_{n}-P_{n-1}-(-P_{n}))+\sqrt{P_{n+1}+P_{n}}-\sqrt{1+P_{n}}}{P_{n}}$$
+---
+$$\Phi _{1_O}\pm\phi _{1_O}=1.4840...,1.7520$$
+$$\Phi _{1_O}\pm\phi _{1_I}=-0.2479...,3.4840...$$
+$$\Phi _{1_I}\pm\phi _{1_O}=-0.7520...,-0.4840...$$
+$$\Phi _{1_I}\pm\phi _{1_I}=-2.4840...,1.2479...$$
+
+$$\Phi _{3_O}\pm\phi _{3_O}=0.5827...,1.6029...$$
+$$\Phi _{3_O}\pm\phi _{3_I}=-0.3970...,2.5827$$
+$$\Phi _{3_I}\pm\phi _{3_O}=-0.8029...,0.2172$$
+$$\Phi _{3_I}\pm\phi _{3_I}=-1.7827...,1.1970$$
+Example:
+$$ ( \frac{  ( 5 - 3 )  \pm \sqrt{ 5 + 7 } }{ 5 } )  +,-  ( \frac{  ( 0 - 5 )  \pm \sqrt{ 1 + 5 } }{ 5 } ) $$
+Or next 
+$$ ( \frac{  ( \frac{ 1 }{ 3 } - \frac{ 1 }{ 5 } )  \pm \sqrt{ \frac{ 1 }{ 3 } + \frac{ 1 }{ 2 } } }{ \frac{ 1 }{ 3 } } )  \pm  ( \frac{  ( 0 - \frac{ 1 }{ 3 } )  \pm \sqrt{ 1 + \frac{ 1 }{ 3 } } }{ \frac{ 1 }{ 3 } } ) $$
+$$**\Phi _{-2_O}\pm\phi _{-2_O}=5.6027...0.6745...$$
+$$\Phi _{-2_O}\pm\phi _{-2_I}=-1.3254...,7.6027....$$
+$$\Phi _{-2_I}\pm\phi _{-2_O}=0.1254...,-4.8027...$$
+$$\Phi _{-2_I}\pm\phi _{-2_I}=-6.8027...,2.1254...$$
+Differences of some being $\pm2$ like $7-5$ or $-6-(-4)$
+
+Maybe this is more useful will have to check later on 🤔 whole number might mean I can make waves with it eventually. And with changing my list from $[..0,1,2,3,5...]$ expanding $0\approx1/$♾️ to $[..\frac{1}{5},\frac{1}{3},\frac{1}{2},\frac{1}{1},\frac{2}{1}...]$ removes the $\frac{\text{Numb.}}{0}$ bit I was ignoring. If u don't like my prime list btw use your own 😊 gl building numbers without 1 or 2/2.
+
+So like $\Phi$ equation?
+$$\frac{(1-\frac{1}{2})\pm\sqrt{1+2}}{1}=-\frac{1}{2}\pm\sqrt{3}$$
+$$\frac{(\frac{1}{1}-\frac{1}{1})\pm\sqrt{\frac{1}{1}+\frac{1}{1}}}{1}=\pm\sqrt{2}$$
+$$\frac{(1-\frac{1}{3})\pm\sqrt{1+2}}{1}=\frac{2}{3}\pm\sqrt{3}$$
+Vs $\phi$
+$$\frac{(0-\frac{1}{1})\pm\sqrt{1+\frac{1}{1}}}{\frac{1}{1}}=-\frac{1}{1}\pm\sqrt{2}$$
+$$\frac{(0-\frac{1}{1})\pm\sqrt{1+\frac{2}{1}}}{\frac{1}{1}}=-\frac{1}{1}\pm\sqrt{\frac{3}{2}}$$
+$$\frac{(0-\frac{1}{3})\pm\sqrt{1+\frac{2}{1}}}{\frac{1}{1}}=-\frac{1}{3}\pm\sqrt{3}$$
+🤷
+Alternative version to my $\phi$ 
+Well so far ill have to actually verify this shit. 
+$$\text{Golden Spiral}:  [1; 1,  1,  1,  1,  1,  ...]$$
+$$\text{New Fraction Spirals}?:$$
+$$ ( \frac{  (  - \frac{ 1 }{ 2 } )  + \sqrt{ \frac{ 1 }{ 1 } + \frac{ 1 }{ 2 } } }{ \frac{ 1 }{ 2 } } ) \approx1.4494...$$
+$$1 + \frac{ 1 }{ 2 + \frac{ 1 }{ 4 + \frac{ 1 }{ 2 + \frac{ 1 }{ \text{...} } } } }\approx?1.4494...$$
+$$[1; 2,  4,  2,  4,  2,  4,  ...]$$
+
+$$\frac{  -  ( \frac{ 1 }{ 3 } )  + \sqrt{ \frac{ 1 }{ 1 } + \frac{ 1 }{ 3 } } }{ \frac{ 1 }{ 3 } }\approx2.4641...$$
+$$2 + \frac{ 1 }{ 2 + \frac{ 1 }{ 6 + \frac{ 1 }{ 2 + \frac{ 1 }{ \text{...} } } } }\approx?2.4641...$$
+$$[2; 2,  6,  2,  6,  2,  6,  ...]$$
+
+$$\frac{  -  ( \frac{ 1 }{ 5 } )  + \sqrt{ \frac{ 1 }{ 1 } + \frac{ 1 }{ 5 } } }{ \frac{ 1 }{ 5 } }\approx4.4772...$$
+$$4 + \frac{ 1 }{ 2 + \frac{ 1 }{ 10 + \frac{ 1 }{ 2 + \frac{ 1 }{ \text{...} } } } }\approx?4.4772...$$
+$$[4; 2, 10,  2, 10,  2, 10,  ...]$$
+Eventually ill reach e's setup. I will needa verify the sequence before tho... Yay... Infinite vector sequences... Then figure out the prime formula and modify that one. 
+Actually maybe the main formula should just be
+$$\frac{\pm(P_n+P_j...)\pm\sqrt{P_k+P_l}}{P_m}$$
+1st $\pm:[+\rightarrow\Phi_n;-\rightarrow\phi_n]$
+2nd $\pm√:[+\rightarrow \Phi_{n_O},\phi_{n_O};-\rightarrow \Phi_{n_I},\phi_{n_I}]$
+List$: [...\frac{1}{5},\frac{1}{3},\frac{1}{2},\frac{1}{1},\frac{2}{1},3,5...]$
+Now that i have fractional "primes" included, this should work for most numbers?
+Possibly even:
+$$\frac{\pm(P_n+P_j...)\pm\sqrt{P_k+P_l}}{P_m\pm P_p...}$$
+But thatll add another
+$\Phi_{n_{O_{+}}},\Phi_{n_{O_{-}}},\Phi_{n_{I_{+}}},\Phi_{n_{I_{-}}}$
+$\phi_{n_{O_{+}}},\phi_{n_{O_{-}}},\phi_{n_{I_{+}}},\phi_{n_{I_{-}}}$
+If not more with $P_n\pm P_p\pm P_r$
+Anywho maybe once i get the wave equation going ill test my 1 prime against that arithmetic prime definition which atm idrk if this is normal arithmetic so...
+Ugh imma have to update my ♾️ radius portion too$\frac{1}{n^{Pn-j...}}-\frac{1}{\frac{1}{\theta}}$
+Hmm so my equation the first +- represents the surface distance. Like orbit arc. 
+2nd represents radius relative length? Im just assuming+-√(a^2+b^2)
+÷(Pm+-...) is thus the amount of dimensions within the radius or how curved... Idk yet ;-;
+Oh so exponents thus moves the object through the infinity radius sequence or vector thru the torus 🤔
